@@ -26,3 +26,48 @@ map("n", "<Leader>dr", "<cmd>lua require'dap'.run_last()<CR>", { desc = "Debugge
 
 -- rustaceanvim
 map("n", "<Leader>dt", "<cmd>lua vim.cmd('RustLsp testables')<CR>", { desc = "Debugger testables" })
+
+-- Gitlab
+
+map('n', '<leader>mr', function() require("gitlab").choose_merge_request() end, { desc = "Choose merge request"})
+
+-- Lazygit && Lazydocker
+local Terminal = require("toggleterm.terminal").Terminal
+local lazygit = Terminal:new({
+    cmd = "lazygit",
+    dir = "git_dir",
+    direction = "float",
+    float_opts = {
+        border = "double",
+    },
+    -- function to run on opening the terminal
+    on_open = function(term)
+        vim.cmd("startinsert!")
+        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+    end,
+    -- function to run on closing the terminal
+    on_close = function()
+        vim.cmd("startinsert!")
+    end,
+})
+local lazydocker = Terminal:new({
+    cmd = "lazydocker",
+    direction = "float",
+    float_opts = {
+        border = "double",
+    },
+    -- function to run on opening the terminal
+    on_open = function(term)
+        vim.cmd("startinsert!")
+        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+    end,
+    -- function to run on closing the terminal
+    on_close = function()
+        vim.cmd("startinsert!")
+    end,
+})
+
+
+map('n', '<leader>lg', function() lazygit:toggle() end, { desc = "Open lazygit"})
+map('n', '<leader>ld', function() lazydocker:toggle() end, { desc = "Open lazydocker"})
+
