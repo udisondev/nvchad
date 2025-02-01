@@ -6,7 +6,7 @@
 local M = {}
 
 M.base46 = {
-	theme = "onedark",
+	theme = "everforest",
 
 	-- hl_override = {
 	-- 	Comment = { italic = true },
@@ -20,5 +20,7 @@ M.base46 = {
 --          lazyload = false
 --      }
 --}
+
+require("custom.treesitter")
 
 return M
